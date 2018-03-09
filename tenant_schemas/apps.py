@@ -88,8 +88,8 @@ def best_practice(app_configs, **kwargs):
 
     if not set(settings.SHARED_APPS).issubset(INSTALLED_APPS):
         delta = set(settings.SHARED_APPS).difference(INSTALLED_APPS)
-        if 'raven.contrib.django' in delta:
-            delta.remove('raven.contrib.django')
+        if 'raven.contrib.django.raven_compat' in delta:
+            delta.remove('raven.contrib.django.raven_compat')
         if delta:
             errors.append(
                 Error("You have SHARED_APPS that are not in INSTALLED_APPS",
