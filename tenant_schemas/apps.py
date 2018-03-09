@@ -88,13 +88,8 @@ def best_practice(app_configs, **kwargs):
 
     if not set(settings.SHARED_APPS).issubset(INSTALLED_APPS):
         delta = set(settings.SHARED_APPS).difference(INSTALLED_APPS)
-        if delta == set(['raven.contrib.django']):
-            errors.append(
-                Warning("Ignoring error for raven.contrib.django",
-                        hint=[a for a in settings.SHARED_APPS if a in delta],
-                        id="tenant_schemas.E003"))
-            pass
-        else:
+        delta.remove('raven.contrib.django')
+        if delta:
             errors.append(
                 Error("You have SHARED_APPS that are not in INSTALLED_APPS",
                       hint=[a for a in settings.SHARED_APPS if a in delta],
